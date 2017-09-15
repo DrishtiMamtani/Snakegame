@@ -118,3 +118,69 @@ this.initialsnake1();
 this.initialsnake2();
 this.initialfood();
 }
+
+game1.draw1=function(context,snake1){
+this.drawstage=function(){
+var keypress=snake1.stage.event.getkey;
+if(typeof(keypress)!="undefined"){
+  snake1.stage.direction=keypress;
+}
+context.fillstyle="black";
+contect.fillRect(0,0,snake1.stage.width,snake1.stage.height);
+var x1=snake1.stage.length[0].x;
+var x2=snake2.stage.length[0].y;
+switch(snake1.stage.direction){
+  case "right"
+  x1++;
+  break;
+  case "left"
+  x1--;
+  break;
+  case "up"
+  y1--;
+  break;
+  case "down"
+  y1++;
+  break;
+}
+if(x1==snake1.stage.food.x && y1==snake1.stage.food.y){
+  var tail={
+    x:x1,
+    y:y1
+  };
+  snake1.stage.score++;
+  snake1.initialfood;
+}
+else{
+  var tail=snake1.stage.length.pop();
+  tail.x=x1;
+  tail.y=y1;
+}
+snake1.stage.length.unshift();
+
+for(var i=0;i<snake1.stage.length;i++)
+{
+  var cell=snake1.stage.length[i];
+  this.drawcell1(cell1.x,cell1.y);
+}
+
+this.drawcell1(snake1.stage.food.x,snake1.stage.food.y);
+
+context.filltext("A: "+ snake1.stage.score, 5, (snake1.stage.height - 5));
+
+this.drawcell1=function(x,y){
+context.fillstyle="rgb(170,170,170)";
+context.arc((x*snake1.stage.co.cw+6),(y*snake1.stage.co.cw+6),4,0,2*Math.PI,false);
+context.fill;
+};
+
+game1.snake1=function(elementId,co)
+{var canvas=document.getElementById(elementId);
+var context=canvas.getContext("2d");
+var snake1=new c1.snake1(canvas,co);
+var gamedraw=new Game1.Draw(context,snake1);
+setInterval(function() {gameDraw.drawStage();}, snake1.stage.conf.fps);
+};
+window.onload = function() {
+  var snake = new Game.Snake('stage', {fps: 100, size: 4});
+};
