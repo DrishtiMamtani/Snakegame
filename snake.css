@@ -1,0 +1,32 @@
+*{
+  padding:0;
+  margin:0;
+}
+.blank{
+  background-color:blank;
+}
+body{
+  background-color:black;
+}
+td{
+  width:20px;
+  height:20px;
+}
+.snake{
+  background-color:white;
+}
+.wall{
+  background-color:blue;
+}
+.food{
+  background-color:pink;
+}
+.score{
+  font-size:30px;
+  fon-weight:normal;
+  font-family:monospace;
+  color:white;
+}
+.another{
+  background-color:green;
+}
