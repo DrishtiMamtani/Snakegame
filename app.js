@@ -19,7 +19,8 @@ var direction=-1;
 //right=2
 var int;
 var score=0;
-
+var foodx;
+var foody;
 
 var anotherx=4;
 var anothery=4;
@@ -31,7 +32,7 @@ var gameend;
 var ascore=0;
 var anotherdirection=-1;
 var arunning=false;
-
+var aint;
 
 
 function run(){
@@ -94,8 +95,8 @@ function getType(x,y)
 function createfood(){
   var flag=false;
   while(!flag && (length<(width-2)*(height-2)+1)){
-    var foodx=rand(1,width-1);
-    var foody=rand(1,height-1);
+    foodx=rand(1,width-1);
+    foody=rand(1,height-1);
     if(getType(foodx,foody)=="blank")
     flag=true;
   }
@@ -235,6 +236,5 @@ function aupdate(){
     ascore+=add;
   }
     document.getElementById("score").innerHTML="Score2:"+ascore;
-}
-
-run();
+  }
+  run();
