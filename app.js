@@ -5,7 +5,7 @@ var height=90;
 var width=100;
 var increment=1;
 var add=1;
-
+var length=0;
 var tailx=[snakex];
 var taily=[snakey];
 var fx;
@@ -21,8 +21,8 @@ var int;
 var score=0;
 
 
-var anotherx=2;
-var anothery=2;
+var anotherx=4;
+var anothery=4;
 var atailx=[anotherx];
 var ataily=[anothery];
 var ax;
@@ -120,7 +120,8 @@ window.addEventListener("keypress",function key(){
   if(!running)
     running=true;
   else if(key==32)
-    running=false;}
+    running=false;
+  }
   else
   {
   if(anotherdirection!=-1 && key==38)
@@ -134,7 +135,8 @@ window.addEventListener("keypress",function key(){
   if(!arunning)
     arunning=true;
   else if(key==13)
-    arunning=false;}
+    arunning=false;
+  }
 
 });
 
