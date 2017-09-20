@@ -1,5 +1,5 @@
 // VARIABLES
-  var snakex=2;//initial position of snake
+  var snakex=2;//initial position of snake1
   var snakey=2;
   var interval=100;//interval at which game loop ocurrs
   var height=30;//height of canvas made
@@ -11,7 +11,7 @@
   var fx;//food coordinates
   var fy;
   var running=false;//running set to false.As soon as a key is pressed running changes to true
-  var gameover;
+  var gameover;//var to check if game is over or not
   var direction=-1;//initial direction is set to -1
   var tempdirection=direction;//the variable used to prevent crashing when multiple keys are pressed quickly
 //up=0
@@ -29,24 +29,20 @@
   var ataily=[anothery];
   var anotherlength=0;//length of snake2
   var gameend;
-  var ascore=0;
+  var ascore=0;//score of snake2
   var anotherdirection=-1;//initial direction of snake2 set to -1 that is downwards
   var tempanotherdirection=anotherdirection;//similar to tempdirection
   var arunning=false;//similar to running
   var aint;//similar to int
   var add=1;//increment in score and length for snake1
-
+  var a;//var which checks player is pressing the keys
 
   //functions
     function run(){ //the only function which is executed.Rest all functions are interconnected by this function.
       initial(); //it creates snakes,food and walls
-      int=setInterval(looping,interval);
+      int=setInterval(gameloop,interval);
     }
 
-   function looping(){
-     gameloop();//runs snake1
-     agameloop();//runs snake2
-   }
 
     function initial(){
         createCanvas(); //creates the walls for the game
@@ -116,7 +112,7 @@
 
     window.addEventListener("keypress",function key(event){// It records the key which is pressed
     var key=event.keyCode();
-    if(key>50 || key==32)//keys pressed for snake1 a/A=left, s/S=down w/W=up, d/D=down
+    if(key>50 || key==32)//keys pressed for snake1 a/A=left, s/S=down, w/W=up, d/D=down
     {
       if(direction != -1 && (key == 119 || key == 87))
         tempdirection = 0;
@@ -128,7 +124,8 @@
         tempdirection = 2;
 
       if(!running) //when a key is pressed running changes to true
-        running=true;
+        {running=true;
+         a=1;}//a=1 signifies update snake1
       else if(key==32)//to stop the snake use spacebar
         running=false;
     }
@@ -143,31 +140,23 @@
       else if(anotherdirection != 1 && key == 39)
         tempanotherdirection=2;
       if(!arunning)//similar to the above one
-        arunning=true;
+        {arunning=true;
+         a=2;}//a=2 signifies update snake2
       else if(key==13)
-        arunning=false;
+        arunning=false;//enter key to stop snake2
     }
     });
 
     function gameloop(){//function to check if game is over or not. If not calls the update function for snake1
-      if(running && !gameover){
+      if((running && !gameover) || (arunning && !gameend)){
         update();
       }
-      else if(gameover){
+      else if(gameover || gameend){
         clearInterval(int);
       }
     }
 
-    function agameloop(){//for snake2
-      if(arunning && !gameend){
-        aupdate();
-      }
-      else if(gameend){
-        clearInterval(aint);
-      }
-    }
-
-    function updatetail(){//moves the snake1
+    function updatetail(){//moves snake1
       for(var i=length;i>0;i--){
         tailx[i]=tailx[i-1];
         taily[i]=taily[i-1];
@@ -186,6 +175,7 @@
       }
 
     function update(){//main function
+     if(a==1){  //a=1 causes updating snake1
       direction=tempdirection;
       set(fx,fy,"food");//check if food is present or not.If not make the food
       updatetail();
@@ -213,10 +203,10 @@
         length+=increment;//increases the length
       }
 
-    }
+     }
 
+     else if(a==2){
 
-    function aupdate(){//for snake2 similar to update
       anotherdirection=tempanotherdirection;
       set(fx,fy,"food");
       aupdatetail();
@@ -235,21 +225,14 @@
         gameend=true;
         break;
         }
-      }
+     }
       if(anotherx==0 || anotherx==width-1 || anothery==0 || anothery==height-1)
       gameend=true;
       else if(anotherx==fx && anothery==fy){
-      ascore+=add;
+      ascore+=1;
       createfood();
       length+=add;
       }
     }
-
+   }
     run();//finally run the entire code.
-
-
-
-
-
-
-    
